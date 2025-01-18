@@ -6,9 +6,13 @@
 void AlterTableCommand::execute(Database &db, const std::string &query) {
     std::istringstream ss(query);
     std::string temp, tableName;
-    ss >> temp >> tableName; // Skipping "ALTER TABLE"
+
+    ss >> temp >> tableName;
     std::string alterCmd, colName, colType;
-    ss >> alterCmd >> temp >> colName >> colType; // ADD COLUMN column_name type
+
+    ss >> alterCmd >> temp >> colName >> colType;
+
     db.alterTableAddColumn(tableName, {colName, colType});
+
     std::cout << "Table altered.\n";
 }

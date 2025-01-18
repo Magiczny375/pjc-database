@@ -16,7 +16,7 @@ int main() {
     Database db;
     CommandExecutor executor;
 
-    // Register commands
+    // Rejestracja komend.
     executor.registerCommand("CREATE", std::make_unique<CreateTableCommand>());
     executor.registerCommand("DROP", std::make_unique<DropTableCommand>());
     executor.registerCommand("ALTER", std::make_unique<AlterTableCommand>());
@@ -28,6 +28,7 @@ int main() {
 
     std::string query;
     std::cout << "Database | version 1.0\nWelcome to the database system. Type your queries below.\n";
+
     while (true) {
         std::cout << "> ";
         std::getline(std::cin, query);
@@ -37,11 +38,12 @@ int main() {
 
         try {
             std::istringstream ss(query);
-            std::string commandName;
+            std::string commandName, params;
+
             ss >> commandName;
-            std::string test;
-            std::getline(ss, test);
-            executor.executeCommand(commandName, db, test);
+            std::getline(ss, params);
+
+            executor.executeCommand(commandName, db, params);
         } catch (const std::exception &ex) {
             std::cerr << "Error: " << ex.what() << "\n";
         }

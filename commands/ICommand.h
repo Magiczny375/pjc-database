@@ -4,11 +4,24 @@
 #include <string>
 #include "../Database.h"
 
-// Command interface for all database commands
+/**
+ * Interfejs bazowy dla wszystkich komend.
+ *
+ * Klasy dziedziczące po `ICommand` muszą implementować metodę `execute`.
+ * Każda komenda powinna wykonywać określoną operację na obiekcie `Database`.
+ */
 class ICommand {
 public:
-    virtual ~ICommand() = default;
+    /**
+     * Wykonuje logikę komendy.
+     *
+     * @param db Obiekt bazy danych, na którym wykonywana jest operacja
+     * @param query Pełne zapytanie użytkownika
+     */
     virtual void execute(Database &db, const std::string &query) = 0;
+
+    /// Wirtualny destruktor dla poprawnego zarządzania dziedziczeniem
+    virtual ~ICommand() = default;
 };
 
 #endif // ICOMMAND_H
