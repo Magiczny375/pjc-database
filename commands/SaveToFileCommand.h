@@ -2,7 +2,6 @@
 #define SAVECOMMAND_H
 
 #include "ICommand.h"
-#include <sstream>
 
 class SaveToFileCommand : public ICommand {
 public:

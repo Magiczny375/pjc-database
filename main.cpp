@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "Database.h"
 #include "CommandExecutor.h"
 #include "commands/CreateTableCommand.h"

@@ -1,5 +1,12 @@
 #include "Database.h"
 
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <stdexcept>
+#include <fmt/core.h>
+#include <sstream>
+
 // Trim a string to remove leading/trailing spaces
 std::string Database::trim(const std::string &str) const {
     size_t start = str.find_first_not_of(" \t\n\r");
@@ -59,7 +66,7 @@ void Database::alterTableAddColumn(const std::string &name, const Column &column
         throw std::runtime_error(fmt::format("Table '{}' does not exist", name));
     }
     it->second.columns.push_back(column);
-    for (auto &row : it->second.rows) {
+    for (auto &row: it->second.rows) {
         row.push_back(DataValue{}); // Add an empty value for existing rows
     }
 }
@@ -71,7 +78,7 @@ void Database::showTables() const {
         return;
     }
     std::cout << "List of tables:\n";
-    for (const auto &[name, _] : tables) {
+    for (const auto &[name, _]: tables) {
         std::cout << name << "\n";
     }
 }
@@ -109,7 +116,7 @@ void Database::select(const std::string &name, const std::vector<std::string> &c
             colIndexes.push_back(i);
         }
     } else {
-        for (const auto &col : columns) {
+        for (const auto &col: columns) {
             auto it = std::find_if(table.columns.begin(), table.columns.end(),
                                    [&col](const Column &c) { return c.name == col; });
             if (it == table.columns.end()) {
@@ -121,17 +128,17 @@ void Database::select(const std::string &name, const std::vector<std::string> &c
 
     // Print column headers
     fmt::println("Table: {}", name);
-    for (size_t idx : colIndexes) {
+    for (size_t idx: colIndexes) {
         fmt::print("{}\t", table.columns[idx].name);
     }
     fmt::print("\n");
-    for (size_t idx : colIndexes) {
+    for (size_t idx: colIndexes) {
         fmt::print("--------");
     }
     fmt::print("\n");
 
     // Print rows that satisfy the WHERE condition
-    for (const auto &row : table.rows) {
+    for (const auto &row: table.rows) {
         bool whereCondition = true;
         if (!whereCol.empty()) {
             auto it = std::find_if(table.columns.begin(), table.columns.end(),
@@ -144,14 +151,14 @@ void Database::select(const std::string &name, const std::vector<std::string> &c
         }
 
         if (whereCondition) {
-            for (size_t idx : colIndexes) {
+            for (size_t idx: colIndexes) {
                 fmt::print("{}\t", dataValueToString(row[idx]));
             }
             fmt::print("\n");
         }
     }
 
-    for (size_t idx : colIndexes) {
+    for (size_t idx: colIndexes) {
         fmt::print("--------");
     }
     fmt::print("\n");
@@ -163,14 +170,14 @@ void Database::saveToFile(const std::string &filename) const {
     if (!out) {
         throw std::runtime_error(fmt::format("Could not open file '{}'", filename));
     }
-    for (const auto &[name, table] : tables) {
+    for (const auto &[name, table]: tables) {
         out << "TABLE " << name << "\n";
-        for (const auto &col : table.columns) {
+        for (const auto &col: table.columns) {
             out << "COLUMN " << col.name << " " << col.type << "\n";
         }
-        for (const auto &row : table.rows) {
+        for (const auto &row: table.rows) {
             out << "ROW ";
-            for (const auto &val : row) {
+            for (const auto &val: row) {
                 out << dataValueToString(val) << " ";
             }
             out << "\n";
@@ -202,7 +209,7 @@ void Database::loadFromFile(const std::string &filename) {
             currentTable->columns.push_back({name, type});
         } else if (keyword == "ROW") {
             std::vector<DataValue> row;
-            for (const auto &col : currentTable->columns) {
+            for (const auto &col: currentTable->columns) {
                 std::string value;
                 ss >> value;
                 row.push_back(parseValue(value, col.type));

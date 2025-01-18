@@ -7,7 +7,7 @@
 #include "commands/ICommand.h"
 
 class CommandExecutor {
-    std::unordered_map<std::string, std::unique_ptr<ICommand>> commands;
+    std::unordered_map<std::string, std::unique_ptr<ICommand> > commands;
 
 public:
     void registerCommand(const std::string &name, std::unique_ptr<ICommand> command) {

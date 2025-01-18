@@ -2,8 +2,6 @@
 #define CREATETABLECOMMAND_H
 
 #include "ICommand.h"
-#include <sstream>
-#include <vector>
 
 class CreateTableCommand : public ICommand {
 public:

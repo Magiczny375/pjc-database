@@ -2,8 +2,6 @@
 #define SELECTCOMMAND_H
 
 #include "ICommand.h"
-#include <sstream>
-#include <vector>
 #include <string>
 
 class SelectCommand : public ICommand {

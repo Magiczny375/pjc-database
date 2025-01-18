@@ -1,4 +1,6 @@
 #include "SelectCommand.h"
+
+#include <sstream>
 #include <iostream>
 
 void SelectCommand::execute(Database &db, const std::string &query) {
@@ -12,7 +14,7 @@ void SelectCommand::execute(Database &db, const std::string &query) {
     // Columns to select (e.g., "col1,col2" or "*")
     std::vector<std::string> columns;
     if (columnsDef == "*") {
-        columns.push_back("*");       // Select all columns
+        columns.push_back("*"); // Select all columns
     } else {
         std::istringstream colStream(columnsDef);
         std::string column;

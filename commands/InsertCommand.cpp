@@ -1,5 +1,8 @@
 #include "InsertCommand.h"
 
+#include <iostream>
+#include <sstream>
+
 void InsertCommand::execute(Database &db, const std::string &query) {
     std::istringstream ss(query);
     std::string temp, tableName;

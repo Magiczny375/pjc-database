@@ -1,4 +1,6 @@
 #include "SaveToFileCommand.h"
+
+#include <sstream>
 #include <iostream>
 
 void SaveToFileCommand::execute(Database &db, const std::string &query) {

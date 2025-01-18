@@ -1,4 +1,6 @@
 #include "LoadFromFileCommand.h"
+
+#include <sstream>
 #include <iostream>
 
 void LoadFromFileCommand::execute(Database &db, const std::string &query) {

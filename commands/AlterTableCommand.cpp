@@ -1,5 +1,8 @@
 #include "AlterTableCommand.h"
 
+#include <iostream>
+#include <sstream>
+
 void AlterTableCommand::execute(Database &db, const std::string &query) {
     std::istringstream ss(query);
     std::string temp, tableName;
