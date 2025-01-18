@@ -27,15 +27,15 @@ int main() {
     executor.registerCommand("LOAD", std::make_unique<LoadFromFileCommand>());
 
     std::string query;
-    std::cout << "PJCDatabase >> version 1.0\nWelcome to the PJC database system. Type your commands below.\n";
-    std::cout << "PJCDatabase >> Author: Krystian Debek";
+    std::cout << "PJCDatabase >> Author: Krystian Debek | Version: 1.0\n";
+    std::cout << "PJCDatabase >> Welcome to the PJC database system. Type your commands below.\n";
 
     while (true) {
         std::cout << "> ";
         std::getline(std::cin, query);
         if (query == "EXIT" || query == "exit") {
-            auto command = "SAVE";
-            auto params = "TO database.txt";
+            auto const command = "SAVE";
+            auto const params = "TO database.txt";
             executor.executeCommand(command, db, params);
             break;
         }
