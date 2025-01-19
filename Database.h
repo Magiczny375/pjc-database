@@ -30,12 +30,11 @@ struct Table {
  * Oferuje funkcje do zarządzania tabelami i ich danymi.
  */
 class Database {
-private:
     std::unordered_map<std::string, Table> tables; ///< Mapa tabel w bazie danych
 
     /**
      * Pomocnicza funkcja usuwająca zbędne spacje z początku i końca ciągu znaków.
-     *
+     * Źródło: https://stackoverflow.com/questions/216823/how-to-trim-a-stdstring
      * @param str Ciąg znaków do przycięcia
      * @return Ciąg znaków bez zbędnych spacji
      */
@@ -52,9 +51,9 @@ private:
     DataValue parseValue(const std::string &value, const std::string &type) const;
 
     /**
-     * Konwertuje wartość `DataValue` na ciąg znaków.
+     * Konwertuje wartość DataValue na std::string
      *
-     * @param value Wartość `DataValue` do skonwertowania
+     * @param value Wartość DataValue do skonwertowania
      * @return Ciąg znaków reprezentujący wartość
      */
     std::string dataValueToString(const DataValue &value) const;

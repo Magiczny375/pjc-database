@@ -16,8 +16,8 @@
  * - Wykonuje logikę komend, wywołując metodę `execute` odpowiedniej klasy komendy.
  *
  * Komendy są przechowywane w mapie:
- * - Klucz: `std::string` (nazwa operacji, np. "CREATE").
- * - Wartość: `std::unique_ptr<ICommand>` (wskaźnik do obiektu implementującego interfejs `ICommand`).
+ * - Klucz: std::string (nazwa operacji, np. "CREATE").
+ * - Wartość: std::unique_ptr<ICommand> (wskaźnik do obiektu implementującego interfejs `ICommand`).
  */
 class CommandExecutor {
     std::unordered_map<std::string, std::unique_ptr<ICommand>> commands; ///< Mapa przechowująca komendy

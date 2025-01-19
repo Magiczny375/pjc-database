@@ -21,6 +21,7 @@ DataValue Database::parseValue(const std::string &value, const std::string &type
     trimmedValue.erase(std::remove(trimmedValue.begin(), trimmedValue.end(), '"'), trimmedValue.end());
 
     // Konwersja na odpowiedni typ danych
+    // Zrodla: https://cplusplus.com/reference/string/stoi/ i https://www.geeksforgeeks.org/cpp-string-to-float-double-and-vice-versa/
     if (type == "INT") {
         return std::stoi(trimmedValue);
     }
@@ -73,7 +74,8 @@ void Database::alterTableAddColumn(const std::string &name, const Column &column
     // Dodaj kolumnę do tabeli
     it->second.columns.push_back(column);
     for (auto &row : it->second.rows) {
-        row.push_back(DataValue{}); // Dodaj pustą wartość dla istniejących wierszy
+        // Dodaj pustą wartość dla istniejących wierszy
+        row.push_back(DataValue{});
     }
 }
 
@@ -147,6 +149,10 @@ void Database::select(const std::string &name, const std::vector<std::string> &c
         fmt::print("--------");
     }
     fmt::print("\n");
+
+    // Zrodlo: https://stackoverflow.com/a/60688885
+    auto trimmedWhereCol = trim(whereCol);
+    trimmedWhereCol.erase(std::remove(trimmedWhereCol.begin(), trimmedWhereCol.end(), '"'), trimmedWhereCol.end());
 
     // Filtrowanie wierszy na podstawie warunku WHERE (jeśli istnieje)
     for (const auto &row : table.rows) {
